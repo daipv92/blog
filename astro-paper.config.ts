@@ -29,9 +29,8 @@ export default defineAstroPaperConfig({
     search: "pagefind",
   },
   socials: [
-    // placeholder — điền link thật khi chốt branding
-    { name: "github", url: "https://github.com/username" },
-    { name: "mail",   url: "mailto:you@example.com" },
+    { name: "github", url: "https://github.com/daipv92" },
+    { name: "mail",   url: "mailto:sonnb.ktpm@gmail.com" },
   ],
   shareLinks: [
     { name: "whatsapp", url: "https://wa.me/?text=" },
