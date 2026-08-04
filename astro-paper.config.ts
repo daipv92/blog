@@ -2,8 +2,7 @@ import { defineAstroPaperConfig } from "./src/types/config";
 
 export default defineAstroPaperConfig({
   site: {
-    // url: placeholder đến khi gắn domain thật ở Phase 4
-    url: "https://blog.pages.dev/",
+    url: "https://heydai.dev/",
     title: "Tech Blog",
     description: "Ghi chép kỹ thuật và kinh nghiệm thực chiến.",
     author: "Author",
