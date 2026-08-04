@@ -29,7 +29,7 @@ export default defineAstroPaperConfig({
   },
   socials: [
     { name: "github", url: "https://github.com/daipv92" },
-    { name: "mail",   url: "mailto:sonnb.ktpm@gmail.com" },
+    { name: "mail",   url: "mailto:daipv.92@gmail.com" },
   ],
   shareLinks: [
     { name: "whatsapp", url: "https://wa.me/?text=" },
