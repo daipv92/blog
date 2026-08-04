@@ -7,28 +7,33 @@
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
-  --font-app: var(--font-google-sans-code);
+  /* Medium-style stacks: system sans for UI, Charter/Georgia serif for reading */
+  --font-app:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial,
+    sans-serif;
+  --font-serif:
+    Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
 }
 
-/* Light theme values */
+/* Light theme — Medium palette */
 :root,
 [data-theme="light"] {
-  --background: #fdfdfd;
-  --foreground: #282728;
-  --accent: #006cac;
+  --background: #ffffff;
+  --foreground: #242424;
+  --accent: #1a8917;
   --accent-foreground: #ffffff;
-  --muted: #e6e6e6;
-  --muted-foreground: #6b7280;
-  --border: #ece9e9;
+  --muted: #f2f2f2;
+  --muted-foreground: #6b6b6b;
+  --border: #e8e8e8;
 }
 
-/* Dark theme values */
+/* Dark theme — Medium dark */
 [data-theme="dark"] {
-  --background: #212737;
-  --foreground: #eaedf3;
-  --accent: #ff6b01;
-  --accent-foreground: #ffffff;
-  --muted: #343f60;
-  --muted-foreground: #afb9ca;
-  --border: #ab4b08;
+  --background: #191919;
+  --foreground: #e6e6e6;
+  --accent: #4caf50;
+  --accent-foreground: #191919;
+  --muted: #262626;
+  --muted-foreground: #a8a8a8;
+  --border: #2f2f2f;
 }
