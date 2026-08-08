@@ -129,6 +129,85 @@
     @apply bg-(--shiki-dark-bg) text-(--shiki-dark) [&_span]:text-(--shiki-dark);
   }
 
+  /* ===== Mermaid Diagrams (build-time inline SVG) ===== */
+  /* SVGs are rendered at build with light-theme colors baked in.
+     The theme toggle sets data-theme (not prefers-color-scheme),
+     so dark mode remaps diagram colors here. !important is needed
+     to beat the SVG's own embedded #id-scoped stylesheet. */
+  .mermaid-scroll {
+    @apply overflow-x-auto;
+  }
+
+  .mermaid-scroll svg[id^="mermaid"] {
+    @apply mx-auto h-auto;
+
+    /* Labels were measured with this font at build time; without the reset,
+       .app-prose's serif/line-height styles leak into foreignObject labels
+       and make them wider than their boxes. */
+    p,
+    span,
+    div {
+      font-family: arial, sans-serif !important;
+      line-height: 1.5 !important;
+      margin: 0 !important;
+    }
+  }
+
+  /* Wide tables scroll inside their wrapper instead of stretching the page;
+     the table itself keeps display:table so a11y semantics stay intact. */
+  .table-scroll {
+    @apply max-w-full overflow-x-auto;
+  }
+
+  /* On small screens, wide diagrams keep their natural size and scroll
+     horizontally instead of shrinking to unreadable text. width beyond
+     the SVG's inline max-width (its natural size) is clamped by it. */
+  @media (max-width: 640px) {
+    .mermaid-scroll svg[id^="mermaid"] {
+      width: 9999px;
+    }
+  }
+
+  /* Covers flowchart class names only — a future sequence/pie/gantt diagram
+     needs its own class overrides here or it will stay light in dark mode. */
+  html[data-theme="dark"] .mermaid-scroll svg[id^="mermaid"] {
+    .label-container,
+    rect.basic,
+    .node rect,
+    .node polygon,
+    .node circle,
+    .node path {
+      fill: var(--muted) !important;
+      stroke: var(--muted-foreground) !important;
+    }
+    .nodeLabel,
+    .edgeLabel,
+    .label,
+    span {
+      color: var(--foreground) !important;
+    }
+    text,
+    tspan {
+      fill: var(--foreground) !important;
+    }
+    .flowchart-link,
+    .edgePaths path {
+      stroke: var(--muted-foreground) !important;
+    }
+    .marker {
+      fill: var(--muted-foreground) !important;
+      stroke: var(--muted-foreground) !important;
+    }
+    .labelBkg,
+    span.edgeLabel,
+    .edgeLabel p,
+    .edgeLabel rect {
+      background-color: var(--background) !important;
+      fill: var(--background) !important;
+      opacity: 0.9;
+    }
+  }
+
   /* Styles for Shiki transformers */
   /* https://shiki.style/packages/transformers */
   .astro-code {

@@ -120,6 +120,13 @@ Then start the project by running the following commands:
 # install dependencies if you haven't done so in the previous step.
 pnpm install
 
+# one-time: install the headless Chromium used to render mermaid diagrams at build time
+pnpm exec playwright install chromium
+
+# note: after changing markdown/rehype plugins in astro.config.ts, run
+# `pnpm astro build --force` once — the content-layer cache keeps rendered
+# HTML per content digest and does not notice pipeline changes.
+
 # start running the project
 pnpm dev
 ```

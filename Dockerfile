@@ -8,6 +8,9 @@ RUN corepack enable && corepack prepare pnpm@latest --activate
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
+# rehype-mermaid renders diagrams at build time via Playwright
+RUN pnpm exec playwright install --with-deps chromium
+
 COPY . .
 RUN pnpm run build
 
