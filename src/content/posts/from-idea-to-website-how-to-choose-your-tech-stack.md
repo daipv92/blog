@@ -9,6 +9,9 @@ tags:
   - tech-stack
   - architecture
   - beginners
+series: building-heydai
+seriesOrder: 1
+articleType: deep-dive
 ---
 
 You have an idea. You want a website. And the first question everyone asks is the wrong one: _"Should I learn React or Vue? Next.js or Astro?"_

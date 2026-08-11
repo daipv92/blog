@@ -1,26 +1,46 @@
 ---
+import { getRelativeLocaleUrl } from "astro:i18n";
 import Layout from "./Layout.astro";
 import config from "@/config";
 
 type Props = {
   title?: string;
+  /** Raw post title for structured data; `title` carries the composed
+   * "Post | Site" page title and must not be parsed back apart. */
+  postTitle?: string;
   description?: string;
   ogImage?: string;
   canonicalURL?: string;
   pubDatetime?: Date;
   modDatetime?: Date | null;
+  /** Registered series this post belongs to; adds a series breadcrumb level */
+  series?: { slug: string; title: string };
 };
 
 const { site } = config;
 
-const { title, description, ogImage, canonicalURL, pubDatetime, modDatetime } =
-  Astro.props;
+const {
+  title,
+  postTitle,
+  description,
+  ogImage,
+  canonicalURL,
+  pubDatetime,
+  modDatetime,
+  series,
+} = Astro.props;
+
+// Canonical (possibly external, e.g. cross-posting) identifies the article;
+// breadcrumbs must stay on this site's own URL.
+const postUrl = canonicalURL ?? Astro.url.href;
 
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   headline: title ?? site.title,
   image: ogImage,
+  ...(description && { description }),
+  mainEntityOfPage: postUrl,
   ...(pubDatetime && { datePublished: pubDatetime.toISOString() }),
   ...(modDatetime && { dateModified: modDatetime.toISOString() }),
   author: [
@@ -30,6 +50,34 @@ const structuredData = {
       ...(site.profile && { url: site.profile }),
     },
   ],
+};
+
+// Breadcrumb trail: Home → Series (when the post belongs to one, otherwise
+// Posts) → this post. URLs are absolute, as schema.org recommends, and go
+// through the same locale/base-aware helpers as visible links so they can't
+// drift from real routes if `base` or locale prefixing is ever enabled.
+const locale = Astro.currentLocale ?? site.lang;
+const urlBase = Astro.site ?? Astro.url.origin;
+const absUrl = (path: string) =>
+  new URL(getRelativeLocaleUrl(locale, path), urlBase).href;
+
+const crumbs = [
+  { name: "Home", item: absUrl("") },
+  series
+    ? { name: series.title, item: absUrl(`series/${series.slug}`) }
+    : { name: "Posts", item: absUrl("posts") },
+  { name: postTitle ?? title ?? site.title, item: Astro.url.href },
+];
+
+const breadcrumbData = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: crumbs.map((crumb, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: crumb.name,
+    item: crumb.item,
+  })),
 };
 ---
 
@@ -59,6 +107,12 @@ const structuredData = {
       type="application/ld+json"
       is:inline
       set:html={JSON.stringify(structuredData)}
+    />
+
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify(breadcrumbData)}
     />
   </Fragment>
 

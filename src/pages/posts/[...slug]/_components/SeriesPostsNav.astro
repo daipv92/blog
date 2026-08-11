@@ -1,0 +1,56 @@
+---
+/**
+ * "Part of the X series" block — the structural hub link required by the
+ * internal-linking rules in docs/website-content-sdd.md §4. The editorial
+ * rule (deep dives citing their Big Question in the intro) stays the
+ * author's job per article; this component only covers the hub link and
+ * sibling list.
+ */
+import type { CollectionEntry } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { getPostUrl } from "@/utils/getPostPaths";
+import { tplStr, useTranslations } from "@/i18n";
+import config from "@/config";
+
+type Props = {
+  series: { slug: string; title: string };
+  seriesPosts: CollectionEntry<"posts">[];
+  currentPostId: string;
+};
+
+const { series, seriesPosts, currentPostId } = Astro.props;
+
+const locale = Astro.currentLocale ?? config.site.lang;
+const t = useTranslations(locale);
+
+const siblings = seriesPosts
+  .filter(post => post.id !== currentPostId)
+  .slice(0, 5);
+---
+
+<section aria-label={tplStr(t.pages.seriesPartOf, { series: series.title })}>
+  <p class="font-medium">
+    <a
+      href={getRelativeLocaleUrl(locale, `series/${series.slug}`)}
+      class="text-accent decoration-dashed underline-offset-4 hover:underline"
+    >
+      {tplStr(t.pages.seriesPartOf, { series: series.title })}
+    </a>
+  </p>
+  {
+    siblings.length > 0 && (
+      <ul class="mt-2 list-disc ps-5">
+        {siblings.map(post => (
+          <li class="my-1">
+            <a
+              href={getPostUrl(post.id, post.filePath, locale)}
+              class="hover:text-accent decoration-dashed underline-offset-4 hover:underline"
+            >
+              {post.data.title}
+            </a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</section>

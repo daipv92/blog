@@ -3,10 +3,11 @@ import { defineAstroPaperConfig } from "./src/types/config";
 export default defineAstroPaperConfig({
   site: {
     url: "https://heydai.dev/",
-    title: "Tech Blog",
-    description: "Ghi chép kỹ thuật và kinh nghiệm thực chiến.",
-    author: "Author",
-    profile: "",
+    title: "HeyDai blog",
+    description:
+      "Engineering deep dives from real systems: how large apps solve hard problems — and how my own implementations compare.",
+    author: "VanDaiPhan",
+    profile: "https://github.com/daipv92",
     ogImage: "default-og.jpg",
     lang: "en",
     timezone: "Asia/Ho_Chi_Minh",

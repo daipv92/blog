@@ -14,6 +14,9 @@ import ShareLinks from "./_components/ShareLinks.astro";
 import BackButton from "./_components/BackButton.astro";
 import BackToTopButton from "./_components/BackToTopButton.astro";
 import AdjacentPostNav from "./_components/AdjacentPostNav.astro";
+import SeriesPostsNav from "./_components/SeriesPostsNav.astro";
+import { getSeries } from "@/data/series";
+import { getPostsBySeries } from "@/utils/getPostsBySeries";
 import config from "@/config";
 
 export async function getStaticPaths() {
@@ -94,15 +97,28 @@ if (!ogImageUrl && config.features.dynamicOgImage) {
 const ogImage = ogImageUrl
   ? new URL(ogImageUrl, Astro.url.origin).href
   : undefined;
+
+// Series context for breadcrumb JSON-LD and the sibling-posts block.
+// Unregistered slugs fail the build in /series/index.astro, so a lookup
+// miss here can only happen transiently and simply renders no series UI.
+const seriesInfo = post.data.series ? getSeries(post.data.series) : undefined;
+const seriesPosts = seriesInfo
+  ? getPostsBySeries(
+      await getCollection("posts", ({ data }) => !data.draft),
+      seriesInfo.slug
+    )
+  : [];
 ---
 
 <PostLayout
   title={`${title} | ${config.site.title}`}
+  postTitle={title}
   description={description}
   ogImage={ogImage}
   canonicalURL={canonicalURL}
   pubDatetime={pubDatetime}
   modDatetime={modDatetime}
+  series={seriesInfo && { slug: seriesInfo.slug, title: seriesInfo.title }}
 >
   <Header />
 
@@ -158,6 +174,19 @@ const ogImage = ogImageUrl
     <ShareLinks />
 
     <hr class="my-8 border-dashed" />
+
+    {
+      seriesInfo && (
+        <>
+          <SeriesPostsNav
+            series={{ slug: seriesInfo.slug, title: seriesInfo.title }}
+            {seriesPosts}
+            currentPostId={post.id}
+          />
+          <hr class="my-8 border-dashed" />
+        </>
+      )
+    }
 
     <AdjacentPostNav {prevPost} {nextPost} />
   </main>

@@ -3,6 +3,8 @@ export interface UIStrings {
     home: string;
     posts: string;
     tags: string;
+    series: string;
+    roadmap: string;
     about: string;
     archives: string;
     search: string;
@@ -50,6 +52,11 @@ export interface UIStrings {
 
     searchTitle: string;
     searchDesc: string;
+
+    seriesTitle: string;
+    seriesDesc: string;
+    seriesComingSoon: string;
+    seriesPartOf: string;
   };
   a11y: {
     skipToContent: string;
