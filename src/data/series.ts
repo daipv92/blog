@@ -67,7 +67,7 @@ export const SERIES: SeriesInfo[] = [
     title: "Mobile Performance",
     description:
       "What actually determines a mobile app's time-to-interactive — measured, not assumed. Framework choice is only one line item.",
-    status: "planned",
+    status: "active",
     bigQuestion:
       "Flutter, React Native or Native: is the framework really why your app is slow?",
   },

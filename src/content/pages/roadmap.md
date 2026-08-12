@@ -21,10 +21,15 @@ Open a chat with years of history and messages appear before your finger leaves 
 
 Planned articles: the loading architecture of major messengers · inside my cursor engine · why it was still slow with a local DB · offset vs keyset vs snapshot pagination (with runnable benchmarks) · measuring chat-open time against Telegram · what I changed and what it bought.
 
+## Now writing: Mobile Performance
+
+_Flutter, React Native or Native: is the framework really why your app is slow?_
+
+[This series](/series/mobile-performance/) opens with evidence from a dozen engineering teams — Snapchat slow in native, Discord fast on React Native — plus my own A/B experiment: the same Flutter app built naive and disciplined, measured on a real device. Framework held constant; the discipline tax measured.
+
 ## Up next (order decided by what you read)
 
 - **[E2EE](/series/e2ee/)** — _WhatsApp, Signal, Messenger, Telegram: how do they really encrypt your messages?_ Key management, multi-device, and why default E2EE took Messenger years.
-- **[Mobile Performance](/series/mobile-performance/)** — _Flutter, React Native or Native: is the framework really why your app is slow?_ What actually determines time-to-interactive, measured.
 - **[Mobile Architecture](/series/mobile-architecture/)** — _From MVP to millions of users: how does mobile architecture actually change?_ Architecture as a response to problems, not a diagram to copy.
 - **[Building HeyDai](/series/building-heydai/)** — the meta-series: every technical choice behind this site, justified by what it needs — not by what's trendy.
 

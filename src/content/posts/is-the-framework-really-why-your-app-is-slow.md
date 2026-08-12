@@ -1,9 +1,9 @@
 ---
 title: "Flutter, React Native or Native: Is the Framework Really Why Your App Is Slow?"
 description: "Snapchat was slow in native. Discord is fast on React Native. Evidence from a dozen engineering teams — plus my own A/B experiment — on what actually makes apps slow."
-pubDatetime: 2026-08-12T03:00:00.000Z
+pubDatetime: 2026-08-12T14:30:00.000Z
 featured: false
-draft: true
+draft: false
 tags:
   - mobile-performance
   - flutter
@@ -21,7 +21,7 @@ Here is the whole article in one sentence:
 > [!TIP]
 > **The framework is the easiest suspect and rarely the culprit.** Apps are slow because of undisciplined startup work, main-thread abuse, network waterfalls, and SDK bloat — engineering discipline, not framework choice.
 
-That's a strong claim, so this post does three things: it walks through what big engineering teams found when their apps were slow (spoiler: almost never the framework), it gives the framework its fair trial for the times it _was_ guilty, and it ends with an experiment you can reproduce — the same Flutter app built twice, measured on a real mid-range Android phone.
+That's a strong claim, so this post does three things: it walks through what big engineering teams found when their apps were slow (spoiler: almost never the framework), it gives the framework its fair trial for the times it _was_ guilty, and it ends with an experiment you can reproduce — the same Flutter app built twice, measured on a real Android phone.
 
 ## Table of contents
 
@@ -120,15 +120,15 @@ Every framework debate eventually cites it: _"Even Airbnb abandoned React Native
 
 ## The Experiment: Same Framework, Two Apps
 
-Industry evidence is good; your own numbers are better. So I built the thesis as an app you can run: **one Flutter project, two entrypoints, pixel-identical UI, identical total work** — a 500-item image feed with an animated header, a 2.3MB config blob, and JSON parsing. The only difference is discipline:
+Industry evidence is good; your own numbers are better. So I built the thesis as an app you can run: **one Flutter project, two entrypoints, pixel-identical UI, identical total work** — a 1000-item image feed with an animated header, a ~6MB feature-flag config blob, and JSON parsing. The only difference is discipline:
 
 | Concern | Naive build | Disciplined build |
 | --- | --- | --- |
 | Startup init | Everything awaited sequentially before `runApp` | First frame ships immediately; init deferred and parallelized |
-| 2.3MB config parse | Main isolate, before first frame | Background isolate, off the critical path |
-| Feed JSON parse | Main isolate during first build | Background isolate |
-| 500-item list | `ListView(children:)` — builds every row up front | `ListView.builder` + `itemExtent` — lazy |
-| Images (1500px assets at 64px) | Full-resolution decode | `cacheWidth` sized to display density |
+| ~6MB config parse | Main isolate, before first frame | Background isolate, off the critical path |
+| Feed JSON parse | Main isolate | Background isolate |
+| 1000-item list | `ListView(children:)` — constructs every row's widget | `ListView.builder` + `itemExtent` — lazy |
+| Images (3000px assets at 64px) | Full-resolution decode | `cacheWidth` sized to display density |
 | Header animation | `setState` at the top of the tree every tick | `AnimatedBuilder` + `RepaintBoundary` |
 
 Every "naive" choice is a pattern from real codebases — no artificial sleeps, no sabotage. The disciplined build does the _same total work_; it just schedules it off the user's critical path.
@@ -139,33 +139,38 @@ flowchart TD
   P --> D[main_disciplined.dart]
   N --> B1[Release APK .naive]
   D --> B2[Release APK .disciplined]
-  B1 --> M[Same mid-range phone, same scripts]
+  B1 --> M[Same phone, same scripts]
   B2 --> M
-  M --> R1[Cold start: am start -W x10, median]
-  M --> R2[Frames: scripted flings + gfxinfo framestats]
+  M --> R1[Cold start x10, median]
+  M --> R2[Frame timings under scripted flings]
+  M --> R3[Memory after identical scroll]
 ```
 
-The diagram shows the experiment design: one shared codebase forks only at the entrypoint, both builds install side by side on the same device, and identical scripts measure cold start and frame stats for each. Both variants, the asset generator, and the measurement scripts are in the public repo: [mobile-perf-ab-demo](https://github.com/hkngoc/mobile-perf-ab-demo).
+The diagram shows the experiment design: one shared codebase forks only at the entrypoint, both builds install side by side on the same device, and identical scripts measure cold start, frame timings, and memory for each. Both variants, the asset generator, and the measurement scripts are in the public repo: [mobile-perf-ab-demo](https://github.com/hkngoc/mobile-perf-ab-demo).
 
-**Methodology:** release builds, installed side by side via product flavors on a real mid-range Android phone. Cold start measured as `am start -W` TTID across 10 runs per variant (force-stop plus settle time between runs), reported as median with spread. Scroll performance measured with an identical scripted fling sequence and `dumpsys gfxinfo framestats` — janky-frame percentage and p90/p99 frame times.
+**Methodology:** release builds (Flutter 3.29.3, Impeller default), installed side by side via product flavors. Test device: **OPPO Reno14 5G, Android 16, 12GB RAM, 90Hz display** — a 2025 upper-mid-range phone, disclosed as such. Cold start = time to the first frame showing loaded feed rows, across 10 runs per variant (force-stop and settle between runs), median with spread. Scroll = identical scripted fling sequence; frame timings self-reported by the app via Flutter's `FrameTiming` API (Android's `gfxinfo` can't see Flutter frames). Memory = `dumpsys meminfo` after the same scroll. One honest disclosure: my first workload (500 items, 1500px images, 2.3MB config) produced **no measurable gap** — this phone absorbed it entirely. I escalated once, to values that are still realistic (user photos are 3–4K; real feature-flag configs reach megabytes), and changed nothing about the anti-patterns themselves.
 
-<!-- MEASUREMENT PENDING: fill from artifact-results.md; keep numbers byte-identical to that file -->
-
-| Metric (median of 10) | Naive | Disciplined | Gap |
+| Metric (10 runs) | Naive | Disciplined | Gap |
 | --- | --- | --- | --- |
-| Cold start (TTID) | _measuring_ | _measuring_ | — |
-| Janky frames % | _measuring_ | _measuring_ | — |
-| p90 / p99 frame time | _measuring_ | _measuring_ | — |
+| Cold start median (first feed frame) | 406ms (391–424) | 284ms (273–325) | **1.43x** |
+| Janky frames % (>16.67ms) | 0.5% | 0.0% | ≈ parity |
+| Build time p50 / p99 | 1.9 / 4.6 ms | 1.1 / 2.4 ms | ~1.7x |
+| **Memory after scroll (total PSS)** | **1,055 MB** | **138 MB** | **7.6x** |
+| **— of which graphics** | **952 MB** | **35 MB** | **27x** |
 
-_Device disclosure, raw runs, and DevTools timeline captures will accompany the final numbers — including any workload adjustments made to keep the comparison honest._
+Three honest readings, in order of what they teach:
 
-Whatever the exact figures land at, the point of the exercise is its design: **the framework is held constant.** Any gap you see is the discipline tax — the cost of the patterns in the left column, which no framework migration would refund.
+1. **The memory number is the scandal.** Decoding 3000px assets for 64px thumbnails put the naive build at **over a gigabyte of RAM for a list of thumbnails** — 27x the graphics memory of the pixel-identical disciplined build. My 12GB test phone shrugged; a 3–4GB phone — the phones most users actually own — would be OOM-killed or thrash the moment the system needs memory back.
+2. **The startup gap is pure scheduling.** Both variants show the feed in their very first frame; the naive one's frame simply arrives 122ms later (1.43x) because prefs, config parsing, and cache warming block `runApp`. Same work, wrong place. On this CPU that's 122ms; the pattern scales with config size and device weakness.
+3. **Scroll jank was a near-tie — and that's worth reporting too.** A 2025 upper-mid phone rendered even the naive build at ~0.5% jank. But the naive build's "smooth" frames hide image pop-in: its oversized decodes couldn't keep up with the fling, so rows scrolled past blank. Fast frames, worse experience — a good reminder that one metric never tells the whole story.
+
+The point of the exercise is its design: **the framework is held constant.** Every gap in that table is the discipline tax — the cost of the patterns in the left column, which no framework migration would refund.
 
 ## The Mid-Range Reality Check
 
 One more reason this matters here in Vietnam: the devices. Android holds [roughly 60% of Vietnam's mobile OS share](https://gs.statcounter.com/os-market-share/mobile/viet-nam) (StatCounter, mid-2026), and the volume segment is mid-range — the Galaxy A and Redmi class, not the flagships benchmarks are run on.
 
-That changes the calculus in a specific way: on a device with a slower CPU, less RAM, and a 60Hz panel, _everything in this article gets amplified_. Zomato's numbers above came from exactly this class of market — their startup fixes produced [about a 30% improvement on low- and mid-range devices](https://developer.android.com/stories/apps/zomato), larger than the fleet average. A flagship absorbs your synchronous config parse; a mid-ranger puts it on screen as a two-second white void. The discipline tax is regressive — it taxes your poorest users hardest. That's also why the experiment above runs on a mid-range phone and not the newest thing money can buy.
+That changes the calculus in a specific way: on a device with a slower CPU, less RAM, and a 60Hz panel, _everything in this article gets amplified_. Zomato's numbers above came from exactly this class of market — their startup fixes produced [about a 30% improvement on low- and mid-range devices](https://developer.android.com/stories/apps/zomato), larger than the fleet average. My own experiment made the same point from the other direction: a 12GB upper-mid phone quietly absorbed a gigabyte of wasted bitmap memory and still showed a 1.43x startup gap — on a 4GB Galaxy A or Redmi, that same gigabyte isn't absorbed, it's an OOM kill. A strong device hides your synchronous config parse; a weak one puts it on screen as a white void. The discipline tax is regressive — it taxes your poorest users hardest.
 
 ## Frequently Asked Questions
 
