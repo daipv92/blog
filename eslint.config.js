@@ -18,5 +18,8 @@ export default [
     },
   },
   { rules: { "no-console": "error" } },
+  // Build scripts run in the terminal, where reporting to stdout/stderr is the
+  // whole point rather than a stray debug statement.
+  { files: ["scripts/**"], rules: { "no-console": "off" } },
   { ignores: ["dist/**", ".astro/**", "public/pagefind/**"] },
 ];

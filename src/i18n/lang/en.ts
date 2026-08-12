@@ -56,7 +56,8 @@ export default {
     searchDesc: "Search any article ...",
 
     seriesTitle: "Series",
-    seriesDesc: "Each series starts from one big engineering question and digs down to case studies and deep dives.",
+    seriesDesc:
+      "Each series starts from one big engineering question and digs down to case studies and deep dives.",
     seriesComingSoon: "Coming in this series",
     seriesPartOf: "Part of the {{series}} series",
   },

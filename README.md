@@ -123,9 +123,12 @@ pnpm install
 # one-time: install the headless Chromium used to render mermaid diagrams at build time
 pnpm exec playwright install chromium
 
-# note: after changing markdown/rehype plugins in astro.config.ts, run
-# `pnpm astro build --force` once — the content-layer cache keeps rendered
-# HTML per content digest and does not notice pipeline changes.
+# note: after changing markdown/rehype plugins in astro.config.ts, or the post
+# schema in src/content.config.ts, run `pnpm astro build --force` once — the
+# content-layer cache keeps rendered HTML per content digest and does not
+# notice pipeline changes. A stale entry can render a post with an entirely
+# empty body while its title, date and tags still look correct, so `pnpm build`
+# runs scripts/verify-post-bodies.mjs and fails if any post has no body.
 
 # start running the project
 pnpm dev
