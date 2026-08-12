@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro check && astro build && pagefind --site dist && cp -r dist/pagefind public/",
+    "build:ci": "playwright install --with-deps chromium && pnpm build",
     "preview": "astro preview",
     "sync": "astro sync",
     "astro": "astro",

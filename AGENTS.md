@@ -8,6 +8,16 @@ astro dev --background
 
 Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
 
+## Deployment
+
+Static output deployed to Cloudflare Workers assets (`wrangler.jsonc`), built from
+`main`. The hosted build command must be `pnpm run build:ci`, not `pnpm build`:
+`rehype-mermaid` renders diagrams through Playwright at build time, and a build
+image without Chromium silently produces posts with empty bodies. Use
+`playwright install chromium` (no `--with-deps`) if the build image forbids apt.
+
+Manual deploy of a locally built `dist/`: `pnpm build && npx wrangler deploy`.
+
 ## Documentation
 
 Full documentation: https://docs.astro.build
