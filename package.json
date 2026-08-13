@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "(playwright install --with-deps chromium || playwright install chromium) && astro check && astro build && node scripts/verify-post-bodies.mjs && pagefind --site dist && cp -r dist/pagefind public/",
+    "build": "(playwright install --with-deps chromium || playwright install chromium) && astro check && astro build --force && node scripts/verify-post-bodies.mjs && pagefind --site dist && cp -r dist/pagefind public/",
     "build:ci": "pnpm build",
     "preview": "astro preview",
     "sync": "astro sync",

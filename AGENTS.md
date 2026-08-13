@@ -25,9 +25,18 @@ Reproduce the failure with
 `PLAYWRIGHT_BROWSERS_PATH=/nonexistent npx astro build --force`.
 
 The Chromium install falls back to `playwright install chromium` when
-`--with-deps` fails, since that flag needs apt/sudo which some build images
-forbid. If a hosted build fails at the verify step, Chromium launched but
-rendered nothing — check the install output at the top of the build log.
+`--with-deps` fails. Cloudflare's image refuses the `--with-deps` half
+(`su: Authentication failure`), so the fallback is the path that actually runs
+there, not a rare edge case.
+
+`astro build --force` is deliberate, not leftover debugging. The content layer
+keys rendered HTML on the markdown digest alone, so a body that rendered empty
+— because Chromium was missing, or because the markdown pipeline changed —
+stays empty on later builds even once the cause is fixed. Cloudflare restores
+its build cache between runs, which makes that poisoned state persist across
+deploys. Forcing costs about 0.2s on this site; leaving it off cost a day of
+posts serving blank. If a build finishes suspiciously fast (~3s) and the verify
+step fails, this is what happened.
 
 Manual deploy of a locally built `dist/`: `pnpm build && npx wrangler deploy`.
 
