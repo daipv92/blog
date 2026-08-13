@@ -35,7 +35,7 @@ Fact-check pass, build verification, and publish prep (commit; deploy happens fr
 - [x] Build passes; built post body non-empty (96KB; caught future-dated pubDatetime silently skipping HTML emit); mermaid rendered
 - [x] All links + quotes verified (fact-check report `plans/reports/from-code-reviewer-to-cook-260813-0754-post-fact-check-report.md`; 1 HIGH fixed: raw logs force-added + pushed to demo repo fed1ef1; wording fixes applied: 7-8 loads/run, 36.5ms, Litho phrasing, fig-1 alt text)
 - [x] Series hub ordering correct (#1 opener, #2 this post); eslint + prettier clean
-- [ ] Commit created; push/deploy per user go-ahead
+- [x] Committed (5f3e39b post, c9ac3f2 plans/journals), pushed to main, manually deployed via `pnpm build && npx wrangler deploy` — live at heydai.dev 2026-08-13 19:18 ICT (post 200/96KB/mermaid+charts; series hub lists #2)
 
 ## Risk Assessment
 
