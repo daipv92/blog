@@ -49,9 +49,13 @@ export const SERIES: SeriesInfo[] = [
     title: "Mobile Architecture",
     description:
       "Architecture as a response to real problems: how mobile apps evolve from MVP to millions of users, and which layers earn their place.",
-    status: "planned",
+    status: "active",
     bigQuestion:
       "From MVP to millions of users: how does mobile architecture actually change?",
+    plannedTitles: [
+      "Dissecting My Own Chat Engine: Which Layers Paid Rent, Which Were Furniture",
+      "Change-Cost A/B: The Same Change in a Layered and a Non-Layered Codebase",
+    ],
   },
   {
     slug: "e2ee",

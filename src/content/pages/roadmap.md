@@ -27,10 +27,15 @@ _Flutter, React Native or Native: is the framework really why your app is slow?_
 
 [This series](/series/mobile-performance/) opens with evidence from a dozen engineering teams — Snapchat slow in native, Discord fast on React Native — plus my own A/B experiment: the same Flutter app built naive and disciplined, measured on a real device. Framework held constant; the discipline tax measured.
 
+## Now writing: Mobile Architecture
+
+_From MVP to millions of users: how does mobile architecture actually change?_
+
+[This series](/series/mobile-architecture/) opens by asking which architecture layers actually keep apps alive over years — with module graphs I extracted myself from Telegram, Signal, and Element X (one, twenty-nine, and 197 modules; same product, same scale). Next: dissecting my own chat engine's layers, then measuring change-cost directly on layered vs non-layered codebases.
+
 ## Up next (order decided by what you read)
 
 - **[E2EE](/series/e2ee/)** — _WhatsApp, Signal, Messenger, Telegram: how do they really encrypt your messages?_ Key management, multi-device, and why default E2EE took Messenger years.
-- **[Mobile Architecture](/series/mobile-architecture/)** — _From MVP to millions of users: how does mobile architecture actually change?_ Architecture as a response to problems, not a diagram to copy.
 - **[Building HeyDai](/series/building-heydai/)** — the meta-series: every technical choice behind this site, justified by what it needs — not by what's trendy.
 
 This page is my public commitment. If I drift from it, call me out.
