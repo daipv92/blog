@@ -230,4 +230,4 @@ The question in this article's title is the one everyone asks, and it's subtly t
 
 So audit your architecture the way you'd audit spending: for every layer, name the pain that pays its rent. "The diagram said so" is not a pain. Build-time graphs, team collisions, a 47,000-line file you're afraid to touch — those are pains. If a layer answers one, keep it and enforce it like Element X enforces its api/impl rule. If it doesn't, it's not architecture — it's furniture.
 
-_Next in this series: a case study — dissecting the layers of my own chat message engine, including the ones that turned out to be furniture; then a deep dive that measures change-cost directly by making the same change in a layered and a non-layered codebase._
+_Next in this series: the layer every measured app agreed on — local storage. What should a mobile app actually use, and how Telegram, Messenger and Signal store millions of messages. Later in the series: a case study dissecting the layers of my own chat message engine, and a deep dive measuring change-cost by making the same change in a layered and a non-layered codebase._
