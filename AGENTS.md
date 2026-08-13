@@ -11,10 +11,23 @@ Manage the background server with `astro dev stop`, `astro dev status`, and `ast
 ## Deployment
 
 Static output deployed to Cloudflare Workers assets (`wrangler.jsonc`), built from
-`main`. The hosted build command must be `pnpm run build:ci`, not `pnpm build`:
+`main` by hosted Cloudflare Workers Builds, which redeploys roughly a minute after
+each push. The build command there is dashboard config, not tracked in this repo,
+so `build` installs its own Chromium rather than depending on that setting;
+`build:ci` is kept only as an alias for whichever command the dashboard already
+points at.
+
 `rehype-mermaid` renders diagrams through Playwright at build time, and a build
-image without Chromium silently produces posts with empty bodies. Use
-`playwright install chromium` (no `--with-deps`) if the build image forbids apt.
+image without Chromium produces posts with empty bodies *while the build still
+exits 0* — frontmatter, title and tags all render, so the pages look structurally
+fine. `scripts/verify-post-bodies.mjs` turns that into a hard build failure.
+Reproduce the failure with
+`PLAYWRIGHT_BROWSERS_PATH=/nonexistent npx astro build --force`.
+
+The Chromium install falls back to `playwright install chromium` when
+`--with-deps` fails, since that flag needs apt/sudo which some build images
+forbid. If a hosted build fails at the verify step, Chromium launched but
+rendered nothing — check the install output at the top of the build log.
 
 Manual deploy of a locally built `dist/`: `pnpm build && npx wrangler deploy`.
 
