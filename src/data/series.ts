@@ -76,6 +76,15 @@ export const SERIES: SeriesInfo[] = [
       "Flutter, React Native or Native: is the framework really why your app is slow?",
   },
   {
+    slug: "realtime",
+    title: "Realtime",
+    description:
+      "How events reach a mobile app — WebSocket, MQTT, SSE and push — and the delivery architecture (ordering, retries, gap recovery) that makes a realtime channel trustworthy.",
+    status: "active",
+    bigQuestion:
+      "My app needs realtime: WebSocket, MQTT, SSE or push — which channel should I choose?",
+  },
+  {
     slug: "building-heydai",
     title: "Building HeyDai",
     description:

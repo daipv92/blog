@@ -33,6 +33,12 @@ _From MVP to millions of users: how does mobile architecture actually change?_
 
 [This series](/series/mobile-architecture/) opens by asking which architecture layers actually keep apps alive over years — with module graphs I extracted myself from Telegram, Signal, and Element X (one, twenty-nine, and 197 modules; same product, same scale). Next: dissecting my own chat engine's layers, then measuring change-cost directly on layered vs non-layered codebases.
 
+## Now writing: Realtime
+
+_My app needs realtime: WebSocket, MQTT, SSE or push — which channel should I choose?_
+
+[This series](/series/realtime/) opens with the receipts — how Messenger, Discord, Uber and Grab actually move events to phones and browsers — then digs into the part every one of those teams ended up engineering by hand: the delivery architecture above the channel — ordering, acknowledgments, dedup, and gap recovery.
+
 ## Up next (order decided by what you read)
 
 - **[E2EE](/series/e2ee/)** — _WhatsApp, Signal, Messenger, Telegram: how do they really encrypt your messages?_ Key management, multi-device, and why default E2EE took Messenger years.
