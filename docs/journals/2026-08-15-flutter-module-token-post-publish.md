@@ -3,7 +3,7 @@
 **Date**: 2026-08-15  
 **Severity**: Routine  
 **Component**: Blog content—mobile-architecture series #3 post  
-**Status**: Built green locally, pushed to main
+**Status**: Published; hosted Cloudflare build stalled again (404 after 4 min), fallback `npx wrangler deploy` verified live
 
 ## What Happened
 
