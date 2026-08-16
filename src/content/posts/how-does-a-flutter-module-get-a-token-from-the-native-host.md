@@ -510,4 +510,4 @@ Get that right and the token stops being interesting. What's left is the part th
 
 That's the whole reason to get something as small as a token right.
 
-_Next in this series: the same dependency-direction question asked of the data layer — should the database live in Flutter or in a native core? What TDLib, Postbox and MSYS suggest about where a mobile app's data layer belongs, and what it costs to put it on the wrong side._
+_Next in this series: [Half Flutter, Half Native: Who Owns Navigation Mid-Migration?](/posts/half-flutter-half-native-who-owns-navigation-mid-migration/) — the same ownership question, asked of the back stack. Then the same dependency-direction question asked of the data layer — should the database live in Flutter or in a native core? What TDLib, Postbox and MSYS suggest about where a mobile app's data layer belongs, and what it costs to put it on the wrong side._
