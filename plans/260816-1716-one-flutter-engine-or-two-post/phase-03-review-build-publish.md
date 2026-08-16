@@ -1,7 +1,7 @@
 ---
 phase: 3
 title: Review Build & Publish
-status: in-progress
+status: completed
 effort: S
 ---
 
@@ -39,7 +39,7 @@ Fact/style review pass (code-reviewer with the source quotes + fact rules), link
 - [x] Review findings fixed (code-reviewer report `web/plans/reports/code-review-260816-1716-one-flutter-engine-or-two-post-report.md`: 5 major — wrong "~180kB" source → Flutter 2.0 blog; "A shows B's last frame" overclaim removed (each VC owns its FlutterView); Kotlin `close()` fixed (`FlutterEngineCache.remove` returns void); issue states re-checked with `gh` 2026-08-16 (#122364/#79335/#165372/#78590/#148662 fixed, #159718/#77621/#72033/#115533/#144499 open) → state column added, #162074 dropped; description 159 chars — plus minors: back-press count consistency, `// …` elisions in Boost excerpts, `co[st]` sic, line ranges, category not swizzle, "threads" dropped, mermaid line breaks, tags 5). All 45 external URLs 200. Post #4 also got a one-clause honesty fix ("engine-lifecycle bug history … both since fixed") — author approved.
 - [x] `pnpm build` green twice incl. verify-post-bodies (10 bodies); 5 `svg[id^=mermaid]` in the built post; `sequenceDiagram` not used (dark-mode CSS covers flowcharts only) — timelines are `flowchart TB`.
 - [x] Post visible under `/series/mobile-architecture/` as #5 (built HTML); #4 footer links to it, data-layer sentence kept; anchor `#reveal-2-the-contract-doesnt-say-who-holds-the-stack` confirmed.
-- [ ] Commit pushed to main; production verified (or `wrangler deploy` fallback used and verified) — record which.
+- [x] Commit `340afa2` pushed to main 2026-08-16 ~11:17Z. Hosted Cloudflare build stalled again (404 at +19 min, third time in a row) → fallback `npx wrangler deploy` of the locally built dist (version `61465bad`); production verified: 200, 231 KB, 5 mermaid `<svg>`, TIP callout, series hub lists #5, #4 footer links to it.
 
 ## Risk Assessment
 

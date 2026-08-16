@@ -6,7 +6,7 @@ description: >-
   engine has one seat per platform, single-engine-done-right = FlutterBoost
   container stack, engine-per-live-segment via FlutterEngineGroup; verdict S2
   conditional; no benchmark numbers.
-status: in-progress
+status: completed
 priority: P2
 branch: main
 tags:
@@ -56,7 +56,7 @@ Publish English post **"One Flutter Engine or Two? What Really Happens When Nati
 |-------|------|--------|
 | 1 | [Content Skeleton Citation Map & Diagrams](./phase-01-content-skeleton-citation-map-diagrams.md) | Completed |
 | 2 | [Write the Post](./phase-02-write-the-post.md) | Completed |
-| 3 | [Review Build & Publish](./phase-03-review-build-publish.md) | In Progress |
+| 3 | [Review Build & Publish](./phase-03-review-build-publish.md) | Completed |
 
 ## Acceptance Criteria
 
