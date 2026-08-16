@@ -203,7 +203,7 @@ Reading left to right: today the Flutter shell owns the stack; the root swap han
 - **How much Flutter→Flutter navigation survives per island.** If Group Setting → Member List stays Flutter for a while, S2 makes that a free push; S1 makes it a bridge call and a container.
 - **How much Dart state the islands share.** Under S2 each island is an isolate ([#115533](https://github.com/flutter/flutter/issues/115533)): a Dart singleton in one engine is invisible in the next. Everything shared has to live in the host — which is where the token post already put session, device and environment, so for us this cost is mostly paid.
 - **First-frame cost of a cold island**, on our devices, measured — see "What It Costs".
-- **How long the hybrid period lasts.** S1's plumbing amortises over years; S2's engine-lifecycle bugs ([#122364](https://github.com/flutter/flutter/issues/122364), [#79335](https://github.com/flutter/flutter/issues/79335)) matter less if islands are few and short-lived.
+- **How long the hybrid period lasts.** S1's plumbing amortises over years; S2's engine-lifecycle bug history ([#122364](https://github.com/flutter/flutter/issues/122364), [#79335](https://github.com/flutter/flutter/issues/79335) — both since fixed) matters less if islands are few and short-lived.
 
 Notice that the contract from Reveal 1 is untouched by any of this. The strategy lives in the *Flutter router* behind `HostRouter`, and in one Dart helper features call:
 
@@ -313,7 +313,7 @@ The router doesn't shorten the hybrid period by itself. What it does is make re-
 
 Per the rule of this blog, the honest list:
 
-- **S1 vs S2 is not decided.** The criteria are above; the measurement that decides the third one hasn't been run.
+- **S1 vs S2 is not decided.** The criteria are above; the measurement that decides the third one hasn't been run. (Decided since, on two conditions, in [the engine post](/posts/one-flutter-engine-or-two-native-between-flutter-screens/).)
 - **The root swap hasn't shipped.** Until Thread List and the tab shell are native we're in S3, and native Chat Detail → Flutter User Profile is exactly the flow S3 handles worst.
 - **iOS swipe-back inside islands** — the `interactivePopGestureRecognizer` conflict — is unresolved; we don't yet know whether we disable the native gesture per container or hand it to Flutter.
 - **Cold island first frame** is unmeasured on our devices; every claim above about "visible blank" is documented, not observed.
@@ -359,7 +359,7 @@ It runs from the fact (two stacks, no owner) through the seam that makes callers
 
 And for us, today, the honest answer is: nobody yet. The table is being built, the stack owner flips at a release that hasn't shipped, and the migration order is being redrawn around a hop table. That's a better place to be than the one where every caller knew Chat Detail was native.
 
-_Next in this series: the same dependency-direction question asked of the data layer — should the database live in Flutter or in a native core? What TDLib, Postbox and MSYS suggest about where a mobile app's data layer belongs, and what it costs to put it on the wrong side._
+_Next in this series: first, the engine question this post left open — [One Flutter Engine or Two? What Really Happens When Native Sits Between Two Flutter Screens](/posts/one-flutter-engine-or-two-native-between-flutter-screens/): why one cached engine cannot serve two Flutter segments with native between them, and what two engines cost. Then the same dependency-direction question asked of the data layer — should the database live in Flutter or in a native core? What TDLib, Postbox and MSYS suggest about where a mobile app's data layer belongs, and what it costs to put it on the wrong side._
 
 ## References
 
