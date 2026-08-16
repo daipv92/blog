@@ -1,7 +1,7 @@
 ---
 title: "Half Flutter Half Native: Who Owns Navigation Mid-Migration post"
 description: "Write and publish mobile-architecture #4: 'Half Flutter, Half Native: Who Owns Navigation Mid-Migration?' — Flutter→native incremental migration, destination contract + host router, physical stack strategies, back/results/deep links, migrate-by-flow."
-status: in-progress
+status: completed
 priority: P2
 branch: "main"
 tags: [content, mobile-architecture, flutter, add-to-app, blog-post]
@@ -39,7 +39,7 @@ Publish English post **"Half Flutter, Half Native: Who Owns Navigation Mid-Migra
 |-------|------|--------|
 | 1 | [Content Skeleton Citation Map & Artifacts](./phase-01-content-skeleton-citation-map-artifacts.md) | Completed |
 | 2 | [Write the Post](./phase-02-write-the-post.md) | Completed |
-| 3 | [Review Build & Publish](./phase-03-review-build-publish.md) | In progress (commit/push/post-deploy check) |
+| 3 | [Review Build & Publish](./phase-03-review-build-publish.md) | Completed |
 
 ## Acceptance Criteria
 

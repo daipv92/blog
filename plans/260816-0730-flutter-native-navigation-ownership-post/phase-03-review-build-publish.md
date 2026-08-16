@@ -1,7 +1,7 @@
 ---
 phase: 3
 title: "Review Build & Publish"
-status: in-progress
+status: completed
 effort: "S"
 ---
 
@@ -39,7 +39,7 @@ Fact/style review pass, token-post footer link update, full production build wit
 - [x] Review findings fixed; corrections + quotes verified; redaction check passed. (code-reviewer: 4 major / 6 minor / 5 nit — all applied; all 47 external URLs return 200; thrio URL → foxsofter/flutter_thrio; #55760 dropped)
 - [x] `pnpm build` green incl. verify-post-bodies (9 bodies); 30 `<svg>` in built post HTML (5 flowcharts, light+dark). Note: first build listed 8 bodies because `pubDatetime` was still in the future in UTC — set to 2026-08-16T01:30Z.
 - [x] Post visible under `/series/mobile-architecture/`; token post footer links to it and keeps the data-layer sentence (verified in built HTML; `astro dev` preview replaced by built-HTML check).
-- [ ] Commit pushed to main; production body verified non-empty.
+- [x] Commit `aed598e` pushed to main 2026-08-16. Hosted Cloudflare build stalled again (404 after 6 min, as on 2026-08-15) → fallback `npx wrangler deploy` of the locally built dist; production verified: 200, 221 KB, 30 `<svg>`, series hub lists the post, token footer links to it.
 
 ## Risk Assessment
 
