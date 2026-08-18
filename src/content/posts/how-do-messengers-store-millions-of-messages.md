@@ -222,4 +222,4 @@ Walk that chain and most storage decisions stop being decisions: secrets were ne
 
 The storage engine, it turns out, is the easy 10%. The architecture around it — who reads, who writes, who syncs, who migrates — is the 90% that decides whether your app is still standing in five years. The four biggest messengers on Earth agree on the 10%. The next post is about the 90%.
 
-_Next in this series: should the database live in Flutter or in a native core? What TDLib, Postbox and MSYS suggest about where a mobile app's data layer belongs — and what it costs to put it on the wrong side._
+_Next in this series: [when an app is split into Flutter + native packages owned by many teams, how does a package use what the host owns — starting with the auth token?](/posts/how-does-a-flutter-module-get-a-token-from-the-native-host) Later: should the database live in Flutter or in a native core? What TDLib, Postbox and MSYS suggest about where a mobile app's data layer belongs — and what it costs to put it on the wrong side._
