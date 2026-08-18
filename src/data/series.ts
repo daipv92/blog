@@ -93,7 +93,6 @@ export const SERIES: SeriesInfo[] = [
     bigQuestion:
       "My app links the Rust library fine — so why can't the Notification Service Extension call it?",
     plannedTitles: [
-      "Static or Dynamic? What Xcode Links Are Actually Doing",
       "Two Processes, One Ratchet: Crypto State in an App Group",
       "From cargo build to XCFramework: the Rust-to-iOS Pipeline",
     ],
