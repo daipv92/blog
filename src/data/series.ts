@@ -85,6 +85,20 @@ export const SERIES: SeriesInfo[] = [
       "My app needs realtime: WebSocket, MQTT, SSE or push — which channel should I choose?",
   },
   {
+    slug: "ios",
+    title: "iOS",
+    description:
+      "iOS platform internals from real integration problems: processes, linking, extensions, and what Xcode is actually doing under the build button.",
+    status: "active",
+    bigQuestion:
+      "My app links the Rust library fine — so why can't the Notification Service Extension call it?",
+    plannedTitles: [
+      "Static or Dynamic? What Xcode Links Are Actually Doing",
+      "Two Processes, One Ratchet: Crypto State in an App Group",
+      "From cargo build to XCFramework: the Rust-to-iOS Pipeline",
+    ],
+  },
+  {
     slug: "building-heydai",
     title: "Building HeyDai",
     description:

@@ -39,6 +39,12 @@ _My app needs realtime: WebSocket, MQTT, SSE or push — which channel should I 
 
 [This series](/series/realtime/) opens with the receipts — how Messenger, Discord, Uber and Grab actually move events to phones and browsers — then digs into the part every one of those teams ended up engineering by hand: the delivery architecture above the channel — ordering, acknowledgments, dedup, and gap recovery.
 
+## Now writing: iOS
+
+_My app links the Rust library fine — so why can't the Notification Service Extension call it?_
+
+[This series](/series/ios/) starts where a working app meets its first extension: the same native library, a second executable, and a build system that stops cooperating. It opens with how an app and its Notification Service Extension really share a Rust crypto core — then keeps pulling on that thread: what linking actually does, and what happens when two processes share one crypto state.
+
 ## Up next (order decided by what you read)
 
 - **[E2EE](/series/e2ee/)** — _WhatsApp, Signal, Messenger, Telegram: how do they really encrypt your messages?_ Key management, multi-device, and why default E2EE took Messenger years.
