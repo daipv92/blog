@@ -548,7 +548,7 @@ main app wakes up
 E2EE runs freely
 ```
 
-iOS has several distinct mechanisms here, each with its own limits. A user-visible alert push can be handed to a **Notification Service Extension** to modify; a silent [`content-available` background push](https://developer.apple.com/documentation/usernotifications/pushing-background-updates-to-your-apps) *may* wake the main app briefly — at the system's discretion, not yours.
+iOS has several distinct mechanisms here, each with its own limits. A user-visible alert push can be handed to a **Notification Service Extension** to modify; a silent [`content-available` background push](https://developer.apple.com/documentation/usernotifications/pushing-background-updates-to-your-app) *may* wake the main app briefly — at the system's discretion, not yours.
 
 Which means for notifications, we can end up facing:
 
@@ -835,7 +835,7 @@ And starting from that question, queues, background tasks, transactions, WAL, th
 
 **Notifications**
 
-- [Pushing background updates to your apps — Apple Developer Documentation](https://developer.apple.com/documentation/usernotifications/pushing-background-updates-to-your-apps)
+- [Pushing background updates to your app — Apple Developer Documentation](https://developer.apple.com/documentation/usernotifications/pushing-background-updates-to-your-app)
 - [UNNotificationServiceExtension — Apple Developer Documentation](https://developer.apple.com/documentation/usernotifications/unnotificationserviceextension)
 
 **Databases under suspension**
