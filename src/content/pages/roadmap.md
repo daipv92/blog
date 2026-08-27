@@ -45,6 +45,12 @@ _My app links the Rust library fine — so why can't the Notification Service Ex
 
 [This series](/series/ios/) starts where a working app meets its first extension: the same native library, a second executable, and a build system that stops cooperating. It opens with how an app and its Notification Service Extension really share a Rust crypto core — then keeps pulling on that thread: what linking actually does, and what happens when two processes share one crypto state.
 
+## Now writing: Mobile Debugging
+
+_Still debugging Flutter with print()?_
+
+[This series](/series/mobile-debugging/) starts from an uncomfortable realization: most debugging time goes into grepping logs for answers that dedicated tools give in seconds. It opens with the Flutter toolbox — Network, Inspector, Performance, Memory, Deep Links, Crashlytics — then goes native (Android, iOS), and ends where tooling is heading: structured evidence that an AI agent can reason over instead of two thousand lines of Logcat.
+
 ## Up next (order decided by what you read)
 
 - **[E2EE](/series/e2ee/)** — _WhatsApp, Signal, Messenger, Telegram: how do they really encrypt your messages?_ Key management, multi-device, and why default E2EE took Messenger years.

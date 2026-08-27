@@ -98,6 +98,20 @@ export const SERIES: SeriesInfo[] = [
     ],
   },
   {
+    slug: "mobile-debugging",
+    title: "Mobile Debugging",
+    description:
+      "Debugging as an evidence problem: the tools that answer each question better than logs — DevTools, crash reporting, and the AI-facing tooling growing around them.",
+    status: "active",
+    bigQuestion: "Still debugging Flutter with print()?",
+    plannedTitles: [
+      "The Android Native Debugging Toolbox",
+      "The iOS Native Debugging Toolbox",
+      "Production Observability for Mobile Apps",
+      "AI-Native Debugging: Letting the Agent See the App",
+    ],
+  },
+  {
     slug: "building-heydai",
     title: "Building HeyDai",
     description:
