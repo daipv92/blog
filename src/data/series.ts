@@ -112,6 +112,15 @@ export const SERIES: SeriesInfo[] = [
     ],
   },
   {
+    slug: "ai-native-dev",
+    title: "AI-Native Developer",
+    description:
+      "How a working developer should actually think about AI: cost structures, verification design, and the skills that gain value as code generation gets cheap.",
+    status: "active",
+    bigQuestion:
+      "Copilot, then Codex, then Claude — so why does my workflow still look like 2022?",
+  },
+  {
     slug: "building-heydai",
     title: "Building HeyDai",
     description:
