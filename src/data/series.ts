@@ -121,6 +121,15 @@ export const SERIES: SeriesInfo[] = [
       "Copilot, then Codex, then Claude — so why does my workflow still look like 2022?",
   },
   {
+    slug: "quality-gates",
+    title: "Quality Gates",
+    description:
+      "Turning architecture decisions into rules CI can enforce: boundary, codegen, API, artifact and security gates for a packaged mobile E2EE module.",
+    status: "active",
+    bigQuestion:
+      "CI says green — so why did the module boundary just break?",
+  },
+  {
     slug: "building-heydai",
     title: "Building HeyDai",
     description:
